@@ -9,21 +9,24 @@ class Player
     @console = console
     @id = id
     @pubg = Pubg.new(@console, @player_name, @id)
+    @id = @pubg.id
   end
 
   def stats
-    if found?
-      rounds = @pubg.stats.sum { |s| s[1]['roundsPlayed'] }
-      kills = @pubg.stats.sum { |s| s[1]['kills'] }
-      wins =  @pubg.stats.sum { |s| s[1]['wins'] }
-      kd = (kills.to_f / rounds).round(3)
+    rounds = @pubg.stats.sum { |s| s[1]['roundsPlayed'] }
+    kills = @pubg.stats.sum { |s| s[1]['kills'] }
+    wins =  @pubg.stats.sum { |s| s[1]['wins'] }
+    kd = (kills.to_f / rounds).round(3)
       {
         "rounds": rounds,
         "kills": kills,
         "wins": wins,
         "kd": kd
       }
-    end
+  end
+
+  def save
+    Redis.save_player(@console, @player_name, @id, stats) if found?
   end
 
   def found?
