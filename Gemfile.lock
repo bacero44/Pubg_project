@@ -35,9 +35,10 @@ GEM
 
 PLATFORMS
   ruby
+  x86_64-linux
 
 DEPENDENCIES
-  dotenv (~> 2.7, >= 2.7.6)
+  dotenv (~> 2.7, >= 2.7.5)
   httparty
   json
   rejson-rb
