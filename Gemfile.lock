@@ -1,5 +1,7 @@
 GEM
+  remote: https://rubygems.org/
   specs:
+    dotenv (2.7.6)
     httparty (0.20.0)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
@@ -37,6 +39,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  dotenv (~> 2.7, >= 2.7.5)
   httparty
   json
   rejson-rb
