@@ -7,9 +7,8 @@ class Player
   def initialize(console = 'xbox', player_name = 'Bacero44', id = nil)
     @player_name = player_name
     @console = console
-    @pubg = Pubg.new
-    @pubg.current_id(id) unless id.nil?
-    @pubg.player_id(console, player_name) if id.nil?
+    @id = id
+    @pubg = Pubg.new(@console, @player_name, @id)
   end
 
   def stats

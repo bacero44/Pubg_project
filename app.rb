@@ -5,6 +5,8 @@ require 'sinatra/reloader' if development?
 require 'json'
 require './pubg'
 require './player'
+require 'dotenv/load'
+
 
 get '/:console/:player_name/json' do
   console = params[:console]
