@@ -1,0 +1,75 @@
+<h2 title="Bacero44">Bacero44</h2>
+<div id="index_content">
+    <h1 title="Pubg" >Pubg Stats </h1>
+    <div>
+        <form>
+            <div class="fgroup">
+                
+                <select name="console" id="console">
+                    <option value="" disabled selected hidden>Console</option>
+                <% @consoles.each do |c|  %>
+                    <option value="<%= c %>"><%= c %></option>
+                <% end %>
+                </select>
+           </div>
+           <div class="fgroup">
+                <input type="text" name="player_name" id="player_name" placeholder="Player Name">
+           </div>
+           <div class="fgroup">
+               <input type="button" id="fbutton" value="Show">
+           </div>
+       </div>
+
+           
+        </form>
+    </div>
+</div>
+<div id="footer">
+    Bryant Acero 2022
+</div>
+
+<script>
+    window.onload = function() {
+        let b = document.getElementById('fbutton');
+        let c = document.getElementById('console');
+        let p = document.getElementById('player_name');
+        
+        b.onclick = function() {
+            if(c.value !== "" && p.value.length > 5){
+               window.location.href = '/'+c.value+'/'+p.value;
+            }
+            else{
+                alert("noo")
+            }
+        };
+    };
+</script>
+
+
+
+<!--
+<div class="twist main_index">
+    <div class="content untwist">
+        <h1>Welcome</h1>
+        <form action="">
+        <div class="fgroup">
+            <label for="console">Console</label>
+            <select name="console" id="console">
+            <% @consoles.each do |c|  %>
+                <option value="<%= c %>"><%= c %></option>
+            <% end %>
+            </select>
+       </div>
+       <div class="fgroup">
+            <label for="player_name">Player</label>
+            <input type="text" name="player_name" id="player_name">
+       </div>
+       
+    </form>
+    </div>
+   
+
+  
+</div>
+
+-->

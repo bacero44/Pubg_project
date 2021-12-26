@@ -1,0 +1,219 @@
+// sass --watch css/style.scss:public/style.css
+
+$color1: #F2F2F2;
+$color2: #313640;
+$color3: #D9A577;
+$color4: #A67356;
+$color5 : #0D0D0D;
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;500;700&display=swap');
+body{
+    font-family: 'Oswald', sans-serif;
+}
+* {
+    margin: 0;
+    padding: 0;
+  }
+
+#BG_video{
+    z-index: 1;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%; 
+    min-height: 100%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+#tv_effect{
+    z-index: 3;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%; 
+    min-height: 100%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    background-image: url(../images/tv_pixel.png);
+    background-repeat: repeat;
+    height: 100%;
+    width: 100%;
+}
+h2{
+    color: $color1;
+    z-index: 2;
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    font-size: 50px;
+    animation: glitch 1s linear infinite;
+
+    &:before,&:after{
+    content: attr(title);
+    position: fixed;
+    right: 0;
+    //position: absolute;
+    //left: 0;
+    }
+    &:before{
+        animation: glitchTop 1s linear infinite;
+        clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+    }
+    &:after{
+        animation: glitchBotom 1.5s linear infinite;
+        clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+        -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+      }
+}
+
+@keyframes glitch{
+    2%,64%{
+      transform: translate(2px,0) skew(0deg);
+    }
+    4%,60%{
+      transform: translate(-2px,0) skew(0deg);
+    }
+    62%{
+      transform: translate(0,0) skew(5deg); 
+    }
+}
+@keyframes glitchTop{
+    2%,64%{
+      transform: translate(2px,-2px);
+    }
+    4%,60%{
+      transform: translate(-2px,2px);
+    }
+    62%{
+      transform: translate(13px,-1px) skew(-13deg); 
+    }
+}
+@keyframes glitchBotom{
+    2%,64%{
+      transform: translate(-2px,0);
+    }
+    4%,60%{
+      transform: translate(-2px,0);
+    }
+    62%{
+      transform: translate(-22px,5px) skew(21deg); 
+    }
+  }
+
+
+
+#index_content{
+    z-index: 99;
+    
+    position: absolute;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    top: 40%;
+    left: 0;
+    *{
+        display:block;
+    }
+    h1{
+        text-transform: uppercase;
+        color: $color3;
+        margin-top: 10vh;
+        background-color: $color2;
+        text-align: center;
+        padding: 10px;
+        font-weight: 700;
+        
+        
+    }
+    div{
+        display: block;
+        
+    }
+
+    .fgroup{
+        background-color: $color2;
+        margin-top: 10px;
+        padding: 10px;
+        
+        input,select{
+            -webkit-appearance: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: 500;
+            
+            &:focus {
+                outline: none;
+                border-color: $color3;
+            }
+        }
+
+        select,input[type=button]{
+            width: 100%;    
+            text-transform: capitalize;
+
+           
+        }
+        option{
+           
+            &[value=""][disabled] {
+                display: none;
+                
+            }
+        }
+      
+    }
+    
+}
+
+
+
+
+
+///////////////////////// OLD
+.main_index{
+   
+    position: absolute;
+    top: 50%;
+    right: 0;
+    -ms-transform: translate(0%, -50%);
+    transform: translate(0%, -50%);
+    min-width: 40vw;
+    height: 50%;
+    z-index: 99;
+    //background-color: $color1;
+    //background-color: rgba(49, 54, 64, 0.5);
+
+    
+    
+    .content{
+        position: relative;
+        right: 0;
+    }
+}
+
+.twist{
+   
+    background-image: -webkit-linear-gradient(160deg, white 50%, red 50%);
+  
+
+    /*
+    -webkit-transform: skewY(-10deg);
+    -moz-transform: skewY(-10deg);
+    -ms-transform: skewY(-10deg);
+    -o-transform: skewY(-10deg);
+    transform: skewY(-10deg);
+    */
+    
+}
+
+.untwist{
+    /*
+    -webkit-transform: skewY(10deg);
+    -moz-transform: skewY(10deg);
+    -ms-transform: skewY(10deg);
+    -o-transform: skewY(10deg);
+    transform: skewY(10deg);
+    */
+}
+

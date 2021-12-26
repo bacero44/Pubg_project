@@ -9,9 +9,13 @@ require './player'
 require './redis'
 
 # 3600 === 1 hour
-REFRESHMENT_TIME = 5
-
+REFRESHMENT_TIME = 300
+get '/' do
+  @consoles = %w[xbox playstation stadia]
+  erb :index, :layout => :l_main
+end
 get '/:console/:player_name/json' do
+  content_type 'application/json'
   console = params[:console]
   player_name = params[:player_name]
   #CACHE
