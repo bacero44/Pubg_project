@@ -15,7 +15,7 @@ body{
     padding: 0;
   }
 
-#BG_video{
+.backvideos{
     z-index: 1;
     position: fixed;
     top: 50%;
@@ -25,7 +25,7 @@ body{
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
-#tv_effect{
+.tv_effect{
     z-index: 3;
     position: fixed;
     top: 50%;
@@ -40,7 +40,7 @@ body{
     height: 100%;
     width: 100%;
 }
-h2{
+#main_player{
     color: $color1;
     z-index: 2;
     position: fixed;
@@ -49,7 +49,10 @@ h2{
     font-size: 50px;
     animation: glitch 1s linear infinite;
 
-    &:before,&:after{
+   
+}
+.text_glitch{
+  &:before,&:after{
     content: attr(title);
     position: fixed;
     right: 0;
@@ -67,7 +70,6 @@ h2{
         -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
       }
 }
-
 @keyframes glitch{
     2%,64%{
       transform: translate(2px,0) skew(0deg);
@@ -168,52 +170,90 @@ h2{
 
 
 
+//STATS
 
+.header{
+  position: relative;
+ 
+  width: 100%;
+  height: 100vh;
+  max-width: 100vw;
 
-///////////////////////// OLD
-.main_index{
-   
+  h1{
+    font-size: 10vw;
+    color: $color1;
+    z-index: 99;
     position: absolute;
     top: 50%;
-    right: 0;
-    -ms-transform: translate(0%, -50%);
-    transform: translate(0%, -50%);
-    min-width: 40vw;
-    height: 50%;
-    z-index: 99;
-    //background-color: $color1;
-    //background-color: rgba(49, 54, 64, 0.5);
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 
     
-    
-    .content{
-        position: relative;
-        right: 0;
-    }
+
+  }
+  
 }
-
-.twist{
-   
-    background-image: -webkit-linear-gradient(160deg, white 50%, red 50%);
+.stats{
+  z-index: 99;
+  font-size: 5vw;
+  background-color: $color1;
+  position: relative;
+  margin-top: 100px;
+  padding: 10vw 10vw 10vw 10vw;
   
 
-    /*
-    -webkit-transform: skewY(-10deg);
-    -moz-transform: skewY(-10deg);
-    -ms-transform: skewY(-10deg);
-    -o-transform: skewY(-10deg);
-    transform: skewY(-10deg);
-    */
+  .element{
+    margin: 10vh;
     
+    display: grid;
+    grid-template-columns: 30% 70%;
+    .video{
+      video{
+        width: 100%;
+        height: 100%;
+        object-fit: none;
+        object-position: 50% 50%;
+      }
+    }
+    .content{
+      text-align: center;
+      padding: 25px;
+      z-index: 99;
+      strong{
+        font-size: 400%;
+        line-height: 80%;
+      }
+      
+    }
+    &:nth-child(even){
+      grid-template-columns: 30% 70%;
+      .video{
+        grid-area: 1/ 1;
+      }
+      
+    }
+    &:nth-child(odd){
+      grid-template-columns: 70% 30%;
+    }
+  }
 }
 
-.untwist{
-    /*
-    -webkit-transform: skewY(10deg);
-    -moz-transform: skewY(10deg);
-    -ms-transform: skewY(10deg);
-    -o-transform: skewY(10deg);
-    transform: skewY(10deg);
-    */
-}
+@media screen and (max-width: 600px) {
+  .stats{
+    font-size: 7vw;
+    padding: 2vw 2vw 2vw 2vw;
+    .element{
+      margin: 15vh 2vw 15vh 2vw;
+      .content{
+        padding: 5px;
+        strong{
+          font-size: 450%;
+          
+        }
+      }
+    }
+  }
+  
 
+}

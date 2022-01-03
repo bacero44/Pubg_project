@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= @player_name %> Stats</title>
+    <link rel="stylesheet" href="/style.css">
+    
+</head>
+<body>
+    <video class="backvideos" autoplay muted loop  poster="/videos/poster.jpg">
+        <source src="/videos/1.mp4" type="video/mp4"> Your browser does not support HTML5 video.
+    </video>
+    <div class="tv_effect"></div>
+    <header>
+        
+        <div class="header">
+            <h1 title="<%= @player_name %>" class="text_glitch"><%= @player_name %></h1>
+        </div>
+        
+    </header>
+    <div class="stats">
+        
+        <main>
+            <div class="element">
+                
+                <div class="content">
+                    <h3 >Matches</h3>
+                    <strong > <%= @stats[:rounds] %></strong>
+                </div>
+                <div class="video">
+                    <video autoplay muted loop  poster="/videos/poster.jpg">
+                        <source src="/videos/1.mp4" type="video/mp4"> Your browser does not support HTML5 video.
+                    </video>
+                </div>
+                
+            </div>
+            <div class="element">
+                <div class="content">
+                    <h3>Kills</h3>
+                    <strong><%= @stats[:kills] %></strong>
+                </div>
+                <div class="video">
+                    <video autoplay muted loop  poster="/videos/poster.jpg">
+                        <source src="/videos/1.mp4" type="video/mp4"> Your browser does not support HTML5 video.
+                    </video>
+                </div>
+            </div>
+            <div class="element">
+                <div class="content">
+                    <h3>Wins</h3>
+                    <strong> <%= @stats[:wins] %></strong>
+                </div>
+                <div class="video">
+                    <video autoplay muted loop  poster="/videos/poster.jpg">
+                        <source src="/videos/1.mp4" type="video/mp4"> Your browser does not support HTML5 video.
+                    </video>
+                </div>
+            </div>
+            <div class="element">
+                <div class="content">
+                    <h3>KD</h3>
+                    <strong> <%= @stats[:kd] %></strong>
+                </div>
+                <div class="video">
+                    <video autoplay muted loop  poster="/videos/poster.jpg">
+                        <source src="/videos/1.mp4" type="video/mp4"> Your browser does not support HTML5 video.
+                    </video>
+                </div>
+            </div>
+        
+            
+        </main>
+    </div>
+    
+    
+    
+</body>
+</html>

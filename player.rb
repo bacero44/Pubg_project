@@ -18,10 +18,10 @@ class Player
     wins =  @pubg.stats.sum { |s| s[1]['wins'] }
     kd = (kills.to_f / rounds).round(3)
       {
-        "rounds": rounds,
-        "kills": kills,
-        "wins": wins,
-        "kd": kd
+        "rounds" => rounds,
+        "kills" => kills,
+        "wins"=> wins,
+        "kd" => kd
       }
   end
 

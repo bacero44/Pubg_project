@@ -6,7 +6,7 @@ body {
   margin: 0;
   padding: 0; }
 
-#BG_video {
+.backvideos {
   z-index: 1;
   position: fixed;
   top: 50%;
@@ -16,7 +16,7 @@ body {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
 
-#tv_effect {
+.tv_effect {
   z-index: 3;
   position: fixed;
   top: 50%;
@@ -30,7 +30,7 @@ body {
   height: 100%;
   width: 100%; }
 
-h2 {
+#main_player {
   color: #F2F2F2;
   z-index: 2;
   position: fixed;
@@ -38,18 +38,19 @@ h2 {
   right: 5px;
   font-size: 50px;
   animation: glitch 1s linear infinite; }
-  h2:before, h2:after {
-    content: attr(title);
-    position: fixed;
-    right: 0; }
-  h2:before {
-    animation: glitchTop 1s linear infinite;
-    clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
-    -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%); }
-  h2:after {
-    animation: glitchBotom 1.5s linear infinite;
-    clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
-    -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%); }
+
+.text_glitch:before, .text_glitch:after {
+  content: attr(title);
+  position: fixed;
+  right: 0; }
+.text_glitch:before {
+  animation: glitchTop 1s linear infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%); }
+.text_glitch:after {
+  animation: glitchBotom 1.5s linear infinite;
+  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+  -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%); }
 
 @keyframes glitch {
   2%,64% {
@@ -109,36 +110,60 @@ h2 {
     #index_content .fgroup option[value=""][disabled] {
       display: none; }
 
-.main_index {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  -ms-transform: translate(0%, -50%);
-  transform: translate(0%, -50%);
-  min-width: 40vw;
-  height: 50%;
-  z-index: 99; }
-  .main_index .content {
-    position: relative;
-    right: 0; }
+.header {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  max-width: 100vw; }
+  .header h1 {
+    font-size: 10vw;
+    color: #F2F2F2;
+    z-index: 99;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); }
 
-.twist {
-  background-image: -webkit-linear-gradient(160deg, white 50%, red 50%);
-  /*
-  -webkit-transform: skewY(-10deg);
-  -moz-transform: skewY(-10deg);
-  -ms-transform: skewY(-10deg);
-  -o-transform: skewY(-10deg);
-  transform: skewY(-10deg);
-  */ }
+.stats {
+  z-index: 99;
+  font-size: 5vw;
+  background-color: #F2F2F2;
+  position: relative;
+  margin-top: 100px;
+  padding: 10vw 10vw 10vw 10vw; }
+  .stats .element {
+    margin: 10vh;
+    display: grid;
+    grid-template-columns: 30% 70%; }
+    .stats .element .video video {
+      width: 100%;
+      height: 100%;
+      object-fit: none;
+      object-position: 50% 50%; }
+    .stats .element .content {
+      text-align: center;
+      padding: 25px;
+      z-index: 99; }
+      .stats .element .content strong {
+        font-size: 400%;
+        line-height: 80%; }
+    .stats .element:nth-child(even) {
+      grid-template-columns: 30% 70%; }
+      .stats .element:nth-child(even) .video {
+        grid-area: 1/ 1; }
+    .stats .element:nth-child(odd) {
+      grid-template-columns: 70% 30%; }
 
-.untwist {
-  /*
-  -webkit-transform: skewY(10deg);
-  -moz-transform: skewY(10deg);
-  -ms-transform: skewY(10deg);
-  -o-transform: skewY(10deg);
-  transform: skewY(10deg);
-  */ }
+@media screen and (max-width: 600px) {
+  .stats {
+    font-size: 7vw;
+    padding: 2vw 2vw 2vw 2vw; }
+    .stats .element {
+      margin: 15vh 2vw 15vh 2vw; }
+      .stats .element .content {
+        padding: 5px; }
+        .stats .element .content strong {
+          font-size: 450%; } }
 
 /*# sourceMappingURL=style.css.map */
