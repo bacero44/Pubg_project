@@ -52,7 +52,8 @@ end
 get '/:console/:player_name/current' do
   console = params[:console]
   @player_name = params[:player_name]
-  @stats = get_stats(console, @player_name, true)
+  @current = true
+  @stats = get_stats(console, @player_name, @current)
   if @stats
     @stats = @stats.transform_keys(&:to_sym)
     erb :stats
