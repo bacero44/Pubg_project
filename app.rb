@@ -11,7 +11,7 @@ require './redis'
 # 3600 === 1 hour
 REFRESHMENT_TIME = 300
 get '/' do
-  @consoles = %w[xbox playstation stadia]
+  @consoles = %w[xbox psn stadia]
   erb :index, :layout => :l_main
 end
 
