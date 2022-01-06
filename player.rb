@@ -2,7 +2,7 @@
 
 #Class for Player attributes
 class Player
-  attr_reader :console, :player_name, :id
+  attr_reader :console, :player_name, :id, :stats, :season_stats
 
   def initialize(console = 'xbox', player_name = 'Bacero44', id = nil)
     @player_name = player_name
@@ -10,18 +10,13 @@ class Player
     @id = id
     @pubg = Pubg.new(@console, @player_name, @id)
     @id = @pubg.id
+    @stats = format_stats(@pubg.stats)
+    @season_stats = format_stats(@pubg.season_stats)
   end
 
-  def stats
-    format_stats(@pubg.stats)
-  end
-
-  def season_stats
-    format_stats(@pubg.season_stats)
-  end
 
   def save
-    Redis.save_player(@console, @player_name, @id, stats, season_stats) if found?
+    Redis.save_player(@console, @player_name, @id, @stats, @season_stats) if found?
   end
 
   def found?

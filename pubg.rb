@@ -81,7 +81,7 @@ class Pubg
 
   # generic API's request
   def request(url)
-    puts 'Entra al request-----------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    puts "Entra al request--FROM: #{caller_locations(1,1)[0].label} --!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
     HTTParty.get(url, headers: {
       'Content-Type' => 'application/json',
       'accept' => 'application/vnd.api+json',
