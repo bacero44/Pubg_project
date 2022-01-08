@@ -188,6 +188,19 @@ body{
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    &.not{
+      color: $color2;
+    }
+  }
+  h2{
+    color: $color1;
+    font-size: 200%;
+    z-index: 99;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
   }
   span{
     color: $color1;
@@ -286,7 +299,7 @@ body{
             z-index: 1000;
             overflow: hidden;
             white-space: nowrap;
-            width: 14vw;
+            width: 13vw;
             height: 15%;
             color: $color5;
           }

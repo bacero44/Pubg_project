@@ -124,6 +124,17 @@ body {
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%); }
+    .header h1.not {
+      color: #313640; }
+  .header h2 {
+    color: #F2F2F2;
+    font-size: 200%;
+    z-index: 99;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); }
   .header span {
     color: #F2F2F2;
     z-index: 99;
@@ -191,7 +202,7 @@ body {
             z-index: 1000;
             overflow: hidden;
             white-space: nowrap;
-            width: 14vw;
+            width: 13vw;
             height: 15%;
             color: #0D0D0D; }
       .stats .element .video {

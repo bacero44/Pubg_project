@@ -4,7 +4,7 @@ require 'rejson'
 REDIS = Redis.new({ password: ENV["REDIS_PASS"] })
 
 # Redis class
-class Redis
+class RedisCache
   class << self
     def active?
       a = true
@@ -21,14 +21,7 @@ class Redis
 
       r = REDIS.json_get "#{console}-#{player_name}", Rejson::Path.root_path
       if !r.nil?
-        {
-          'date' => DateTime.parse(r['date']),
-          'id' => r['id'],
-          'stats' => r['stats'],
-          'season' => r['season'],
-          'player_name' => r['player_name'],
-          'console' => r['console']
-        }
+        stats_format(r['id'], r['player_name'], r['console'], r['stats'], r['season'], DateTime.parse(r['date']))
       else
         false
       end
@@ -37,23 +30,16 @@ class Redis
     def save_player(console, player_name, id, stats, season)
       return false unless active?
 
-      REDIS.json_set("#{console}-#{player_name}", Rejson::Path.root_path, {
-        'player_name' => player_name,
-        'console' => console,
-        'id' => id, 
-        'stats' => stats,
-        'season' => season,
-        'date' => Time.new
-      })
+      REDIS.json_set(
+        "#{console}-#{player_name}",
+        Rejson::Path.root_path, stats_format(id, player_name, console, stats, season, Time.new)
+      )
     end
 
     def save_current_season(console, id)
       return false unless active?
 
-      REDIS.json_set("current_season-#{console}", Rejson::Path.root_path, {
-        'id' => id,
-        'date' => Time.new
-      })
+      REDIS.json_set("current_season-#{console}", Rejson::Path.root_path,  season_format(id, Time.new))
     end
 
     def get_current_season(console)
@@ -61,13 +47,30 @@ class Redis
 
       r = REDIS.json_get "current_season-#{console}", Rejson::Path.root_path
       if !r.nil?
-        {
-          'date' => DateTime.parse(r['date']),
-          'id' => r['id']
-        }
+        season_format(r['id'], DateTime.parse(r['date']))
       else
         false
       end
+    end
+
+    private
+
+    def stats_format(id, player_name, console, stats, season, date)
+      {
+        'id' => id,
+        'player_name' => player_name,
+        'console' => console,
+        'stats' => stats,
+        'season' => season,
+        'date' => date
+      }
+    end
+
+    def season_format(id, date)
+      {
+        'id' => id,
+        'date' => date
+      }
     end
   end
 end

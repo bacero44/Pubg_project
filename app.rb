@@ -7,77 +7,78 @@ require 'dotenv/load'
 require './pubg'
 require './player'
 require './redis'
+require './memory'
 
 # 3600 === 1 hour
 REFRESHMENT_TIME = 300
+CACHE = RedisCache.active? ? RedisCache : MemoryCache
+puts "------------------------------------------------------------"
+puts CACHE
+puts "------------------------------------------------------------"
 get '/' do
   @consoles = %w[xbox psn stadia]
   erb :index, :layout => :l_main
 end
 
 get '/:console/:player_name/json' do
-  content_type 'application/json'
-  console = params[:console]
-  player_name = params[:player_name]
-  stats = get_stats(console, player_name)
-  if stats
-    json_response(stats, 200)
-  else
-    json_response({ "message": " We can't found the player" }, 404)
-  end
+  json_process
 end
 
 get '/:console/:player_name/current/json' do
-  content_type 'application/json'
-  console = params[:console]
-  player_name = params[:player_name]
-  stats = get_stats(console, player_name, true)
-  if stats
-    json_response(stats, 200)
-  else
-    json_response({ "message": " We can't found the player" }, 404)
-  end
+  json_process(true)
 end
 
 get '/:console/:player_name' do
-  console = params[:console]
-  @player_name = params[:player_name]
-  @stats = get_stats(console, @player_name)
-  if @stats
-    @stats = @stats.transform_keys(&:to_sym)
-    erb :stats
-  end
+  html_process
 end
 
 get '/:console/:player_name/current' do
-  console = params[:console]
+  html_process(true)
+end
+
+def html_process(current = false)
+  @console = params[:console]
   @player_name = params[:player_name]
-  @current = true
-  @stats = get_stats(console, @player_name, @current)
-  if @stats
+  @current = current
+  @stats = player_data(@console, @player_name)
+  if @stats[:error]
+    erb :error , :layout => :l_main
+  elsif !@stats[:found]
+    erb :notfound , :layout => :l_main
+  else
+    @stats = @current ? @stats[:season_stats] : @stats[:stats]
     @stats = @stats.transform_keys(&:to_sym)
     erb :stats
   end
 end
 
+def json_process(current = false)
+  content_type 'application/json'
 
-def get_stats(console,player_name, current = false)
-  # CACHE
-  redis = Redis.get_player(console, player_name)
-  if redis && ((Time.now - Time.parse(redis['date'].to_s)) < REFRESHMENT_TIME)
-    # puts " ***** cache response **********"
-    current ? redis['season'] : redis['stats']
+  console = params[:console]
+  player_name = params[:player_name]
+  
+  stats = player_data(console, player_name)
+  if stats[:error]
+    json_response({ "message": " cannot be processed at this time" }, 500)
+  elsif !stats[:found]
+    json_response({ "message": " We can't found the player" }, 404)
   else
-    # puts " ***** Normal response **********"
-    id = redis ? redis['id'] : nil
-    player = Player.new(console, player_name, id)
-    if player.found?
-      player.save
-      current ? player.season_stats : player.stats
-    else
-      false
-    end
+    stats = current ? stats[:season_stats] : stats[:stats]
+    stats = stats.transform_keys(&:to_sym)
+    json_response(stats, 200)
   end
+
+end
+
+def player_data(console, player_name)
+  player = Player.new(console, player_name)
+  {
+    error: player.error,
+    found: player.found?,
+    stats: player.stats,
+    season_stats: player.season_stats
+  }
 end
 
 def json_response(payload, status_code)
