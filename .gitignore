@@ -1,1 +1,4 @@
 .env
+Gemfile.lock
+.vscode
+.sass-cache
